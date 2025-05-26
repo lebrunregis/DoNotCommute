@@ -1,16 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GhostTimeline))]
 public class GhostTimeline : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #region Public
+    public float m_timeScale = 1;
+    public LinkedList<GhostRecord> m_records = new LinkedList<GhostRecord>();
+    #endregion
 }
