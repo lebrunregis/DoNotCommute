@@ -4,7 +4,7 @@ using UnityEngine;
 public class GhostRecorder : MonoBehaviour
 {
     #region Public
-    public GhostTimeline m_timeline;
+
     public GhostModeEnum m_ghostMode;
     public float m_deltaTime = 0;
     public float m_time = 0;
@@ -14,11 +14,12 @@ public class GhostRecorder : MonoBehaviour
     public void OnEnable()
     {
         m_timeline = GetComponent<GhostTimeline>();
+        m_deltaTime = m_timeline.m_timeScale;
     }
 
     public void Update()
     {
-        m_time += Time.deltaTime;
+        m_time -= Time.deltaTime;
         if (m_deltaTime <= 0)
         {
             m_deltaTime = m_timeline.m_timeScale;
@@ -31,4 +32,8 @@ public class GhostRecorder : MonoBehaviour
         m_timeline.m_records.AddLast(record);
     }
 
+
+    #region Private
+    private GhostTimeline m_timeline;
+    #endregion
 }

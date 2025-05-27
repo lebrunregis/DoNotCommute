@@ -3,19 +3,22 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class CarController : MonoBehaviour
 {
-    //Rigidbody m_rb;
-    private CharacterController m_cc;
+    public Camera m_camera;
+    public float m_rotation;
     public Vector3 m_velocity = new(0, 0, 0);
     public Vector3 m_angularVelocity = new(0, 0, 0);
-    public float m_speed = 1.0f;
-    public float m_angularSpeed = 1.0f;
+    public float m_acceleration = 1.0f;
+    public float m_angularSpeed = 15.0f;
     public bool m_grounded = false;
     public float m_gravity = -10;
     public float m_jumpHeight = 2;
+    public float m_friction = 0.5f;
+    public Transform m_transform;
 
     private void OnEnable()
     {
         m_cc = GetComponent<CharacterController>();
+        m_rotation = m_transform.rotation.y;
     }
 
     // Update is called once per frame
@@ -29,11 +32,15 @@ public class CarController : MonoBehaviour
 
         // Horizontal input
         Vector3 move = new(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        move = Vector3.ClampMagnitude(move, 1f);
 
         if (move != Vector3.zero)
         {
-            transform.forward = move;
+            transform.forward = move;   
+            m_velocity += move.z * m_acceleration * transform.forward * Time.deltaTime;
+        m_rotation += move.x  * m_angularSpeed* Time.deltaTime;
+        } else
+        {
+            m_velocity -= m_velocity * m_friction * Time.deltaTime;
         }
 
         // Jump
@@ -42,11 +49,19 @@ public class CarController : MonoBehaviour
             m_velocity.y = Mathf.Sqrt(m_jumpHeight * -2.0f * m_gravity);
         }
 
-        // Apply gravity
-        m_velocity.y += m_gravity * Time.deltaTime;
+        if (!m_grounded)
+        {
+            // Apply gravity
+            m_velocity.y += m_gravity * Time.deltaTime;
+        }
+        else
+        {
+            m_velocity.y = 0f;
+        }
 
-        // Combine horizontal and vertical movement
-        Vector3 finalMove = (move * m_speed) + (m_velocity.y * Vector3.up);
-        m_cc.Move(finalMove * Time.deltaTime);
-    }
+        m_transform.rotation = Quaternion.Euler(0, m_rotation,0);
+
+        m_cc.Move(m_velocity * Time.deltaTime);
+    } 
+    private CharacterController m_cc;
 }

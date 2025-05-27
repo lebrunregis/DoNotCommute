@@ -6,6 +6,12 @@ public class GhostTimeline : MonoBehaviour
 {
     #region Public
     public float m_timeScale = 1;
-    public LinkedList<GhostRecord> m_records = new LinkedList<GhostRecord>();
+    public int count;
+    public LinkedList<GhostRecord> m_records = new();
     #endregion
+
+    private void Update()
+    {
+        count = m_records.Count;
+    }
 }

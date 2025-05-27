@@ -16,9 +16,17 @@ public class GhostManager : MonoBehaviour
         m_player = GetComponent<GhostPlayer>();
         m_recorder = GetComponent<GhostRecorder>();
         m_player.enabled = false;
-        m_recorder.enabled = false;
+        m_recorder.enabled = true;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            m_recorder.enabled = false;
+            m_player.enabled = true;
+        }
+    }
     #endregion
 
 
