@@ -5,30 +5,32 @@ public class GhostRecorder : MonoBehaviour
 {
     #region Public
 
-    public GhostModeEnum m_ghostMode;
-    public float m_deltaTime = 0;
+    public float m_recordDelta = 0;
     public float m_time = 0;
-    public Transform m_transform;
     #endregion
 
     public void OnEnable()
     {
         m_timeline = GetComponent<GhostTimeline>();
-        m_deltaTime = m_timeline.m_timeScale;
+        m_recordDelta = m_timeline.m_timeScale;
+        m_time = 0;
     }
 
     public void Update()
     {
-        m_time -= Time.deltaTime;
-        if (m_deltaTime <= 0)
+        m_time += Time.deltaTime;
+        m_recordDelta -= Time.deltaTime;
+        if (m_recordDelta <= 0)
         {
-            m_deltaTime = m_timeline.m_timeScale;
-            GhostRecord ghostRecord = new(m_time, m_transform.position, m_transform.rotation);
+            m_recordDelta = m_timeline.m_timeScale;
+            GhostRecord ghostRecord = new(m_time, transform.position, transform.rotation);
             AddRecord(ghostRecord);
         }
     }
+
     public void AddRecord(GhostRecord record)
     {
+        Debug.Log("Frame recorded", this);
         m_timeline.m_records.AddLast(record);
     }
 

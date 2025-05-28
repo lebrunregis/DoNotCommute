@@ -1,8 +1,15 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Parking))]
 public class CarLoader : MonoBehaviour
 {
-    public Parking m_CarFactory;
+    #region Publics
+
+    #endregion
+
+
+    #region Unity Api
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -14,4 +21,23 @@ public class CarLoader : MonoBehaviour
     {
 
     }
+
+    #endregion
+
+
+    #region Main Methods
+
+    #endregion
+
+
+    #region Utils
+
+    #endregion
+
+
+    #region Private and Protected
+    private Parking m_parking;
+    #endregion
+
+
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(GhostRecorder))]
 [RequireComponent(typeof(GhostPlayer))]
+[RequireComponent(typeof(GhostRewinder))]
 public class GhostManager : MonoBehaviour
 {
     #region Publics
@@ -15,17 +16,11 @@ public class GhostManager : MonoBehaviour
     {
         m_player = GetComponent<GhostPlayer>();
         m_recorder = GetComponent<GhostRecorder>();
+        m_rewinder = GetComponent<GhostRewinder>();
         m_player.enabled = false;
-        m_recorder.enabled = true;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            m_recorder.enabled = false;
-            m_player.enabled = true;
-        }
+        m_recorder.enabled = false;
+        m_rewinder.enabled = false;
+        Record();
     }
     #endregion
 
@@ -36,6 +31,7 @@ public class GhostManager : MonoBehaviour
         m_mode = GhostModeEnum.Play;
         m_player.enabled = true;
         m_recorder.enabled = false;
+        m_rewinder.enabled = false;
     }
 
     public void Record()
@@ -43,6 +39,15 @@ public class GhostManager : MonoBehaviour
         m_mode = GhostModeEnum.Record;
         m_player.enabled = false;
         m_recorder.enabled = true;
+        m_rewinder.enabled = false;
+    }
+
+    public void Rewind()
+    {
+        m_mode = GhostModeEnum.Rewind;
+        m_player.enabled = false;
+        m_recorder.enabled = false;
+        m_rewinder.enabled = true;
     }
     #endregion
 
@@ -55,6 +60,7 @@ public class GhostManager : MonoBehaviour
     #region Private and Protected
     private GhostPlayer m_player;
     private GhostRecorder m_recorder;
+    private GhostRewinder m_rewinder;
     #endregion
 
 

@@ -1,5 +1,7 @@
 ﻿public enum GhostModeEnum
 {
+    None = 0,
     Record,
-    Play
+    Play,
+    Rewind
 }
