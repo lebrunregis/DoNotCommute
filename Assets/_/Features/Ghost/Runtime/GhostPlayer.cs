@@ -38,10 +38,10 @@ public class GhostPlayer : MonoBehaviour
                 Vector3 position = m_currentNode.Value.position;
                 Quaternion rotation = m_currentNode.Value.rotation;
 
-                if(transform.position != position)
-                m_positionTween = Tween.Position(transform, position, m_timeScale, Ease.Linear);
-                if(transform.rotation != rotation)
-                m_rotationTween = Tween.Rotation(transform, rotation, m_timeScale, Ease.Linear);
+                if (transform.position != position)
+                    m_positionTween = Tween.Position(transform, position, m_timeScale, Ease.Linear);
+                if (transform.rotation != rotation)
+                    m_rotationTween = Tween.Rotation(transform, rotation, m_timeScale, Ease.Linear);
                 m_currentNode = m_currentNode.Next;
 
             }

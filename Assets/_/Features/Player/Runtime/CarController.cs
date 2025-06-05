@@ -1,9 +1,10 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class CarController : MonoBehaviour
 {
-    public Camera m_camera;
+    public CinemachineCamera m_camera;
     public float m_rotation;
     public Vector3 m_velocity = new(0, 0, 0);
     public Vector3 m_angularVelocity = new(0, 0, 0);

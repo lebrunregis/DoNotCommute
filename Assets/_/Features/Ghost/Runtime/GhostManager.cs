@@ -30,6 +30,7 @@ public class GhostManager : MonoBehaviour
     {
         m_mode = GhostModeEnum.Play;
         m_player.enabled = true;
+        m_player.m_time = 0;
         m_recorder.enabled = false;
         m_rewinder.enabled = false;
     }
